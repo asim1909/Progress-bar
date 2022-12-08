@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    margin-top: 5cm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #32312B;
+}
+
+@property --pgPercentage {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+}
+
+:root {
+    --size: 12rem;
+    --fg: #B9A92C;
+    --bg: #DBD8BD;
+    --pgPercentage: var(--value);
+}
+
+@keyframes progress {
+    0%,
+    33% {
+        --pgPercentage: 0;
+    }
+    100% {
+        --pgPercentage: var(--value);
+    }
+}
+
+.container {
+    display: flex;
+    font-display: row;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progressbar {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center; 
+    background: radial-gradient(closest-side, #32312B 80%, transparent 0 99.9%, #32312B 0), conic-gradient(var(--fg) calc(var(--pgPercentage)*1%), var(--bg) 0);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: var(--fg);
+    margin: 5%; 
+    animation: progress 3s 1 forwards;
+    
+    }
+    
+.progressbar::before {
+    counter-reset: percentage var(--value); 
+    content: counter(percentage) '%';
+    }
